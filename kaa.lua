@@ -13,7 +13,7 @@ mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 112)
 mainFrame.BackgroundTransparency = 0.2
 mainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 mainFrame.BorderSizePixel = 0
-mainFrame.Position = UDim2.new(0.437, 0, 0.342, 0)
+mainFrame.Position = UDim2.new(0.437014967, 0, 0.341717303, 0)
 mainFrame.Size = UDim2.new(0, 266, 0, 294)
 
 -- Een binnenframe voor de titel
