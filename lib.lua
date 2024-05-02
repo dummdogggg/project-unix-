@@ -3,6 +3,9 @@ local SimpleUILib = {}
 
 -- Function to create a window with a title
 function SimpleUILib.createWindow(parent, title)
+-- Roblox Lua Script voor het creëren van een UI-frame met scrollbaar inhoudsgebied
+
+-- Maak een ScreenGui om de UI te bevatten
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -16,72 +19,68 @@ mainFrame.BorderSizePixel = 0
 mainFrame.Position = UDim2.new(0.437, 0, 0.342, 0)
 mainFrame.Size = UDim2.new(0, 266, 0, 294)
 
--- Een binnenframe voor de titel
+-- Titel frame aan de bovenkant
 local titleFrame = Instance.new("Frame")
 titleFrame.Parent = mainFrame
 titleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 titleFrame.BackgroundTransparency = 0.6
 titleFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-titleFrame.BorderSizePixel = 0
 titleFrame.Size = UDim2.new(1, 0, 0, 29)
 
--- Een UICorner om afgeronde hoeken te creëren
-local titleFrameCorner = Instance.new("UICorner")
-titleFrameCorner.Parent = titleFrame
+local titleFrameCorner = Instance.new("UICorner", titleFrame)
 
--- Een titel label
+-- Titel label
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Parent = titleFrame
-titleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 titleLabel.BackgroundTransparency = 1
-titleLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-titleLabel.BorderSizePixel = 0
-titleLabel.Position = UDim2.new(0.09, 0, 0.14, 0)
-titleLabel.Size = UDim2.new(0, 130, 0, 18)
-titleLabel.Font = Enum.Font.SourceSans
 titleLabel.Text = "Project Qnix"
-titleLabel.TextColor3 = Color3.fromRGB(211, 211, 211)
+titleLabel.Font = Enum.Font.SourceSansBold
 titleLabel.TextSize = 20
+titleLabel.TextColor3 = Color3.fromRGB(211, 211, 211)
+titleLabel.TextYAlignment = Enum.TextYAlignment.Center
+titleLabel.Size = UDim2.new(1, 0, 1, 0)
 
--- Een UICorner voor het hoofdframe
-local mainFrameCorner = Instance.new("UICorner")
-mainFrameCorner.Parent = mainFrame
+-- Scroll frame voor knoppen of inhoud
+local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Parent = mainFrame
+scrollFrame.BackgroundTransparency = 1
+scrollFrame.BorderSizePixel = 0
+scrollFrame.Position = UDim2.new(0, 0, 0.1, 0)  -- Onder het titelgedeelte
+scrollFrame.Size = UDim2.new(1, 0, 0.9, 0)  -- 90% van het hoofdframe
+scrollFrame.CanvasSize = UDim2.new(0, 0, 1, 0)  -- CanvasSize kan worden aangepast afhankelijk van het aantal elementen
+scrollFrame.ScrollBarThickness = 10  -- De breedte van de scrollbar
+scrollFrame.ScrollingDirection = Enum.ScrollingDirection.Y  -- Alleen verticaal scrollen
 
--- Een gradient voor het hoofdframe
-local gradient = Instance.new("UIGradient")
-gradient.Color = ColorSequence.new({
-    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 25, 65)),
-    ColorSequenceKeypoint.new(1, Color3.fromRGB(85, 57, 139))
-})
-gradient.Parent = mainFrame
+-- Voeg een UIListLayout toe om automatische positionering van de knoppen mogelijk te maken
+local listLayout = Instance.new("UIListLayout", scrollFrame)
+listLayout.FillDirection = Enum.FillDirection.Vertical
+listLayout.SortOrder = Enum.SortOrder.LayoutOrder
+listLayout.Padding = UDim.new(0, 5)  -- Ruimte tussen knoppen
 
--- Een afbeeldingslabel
-local imageLabel = Instance.new("ImageLabel")
-imageLabel.Parent = mainFrame
-imageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-imageLabel.BackgroundTransparency = 1
-imageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
-imageLabel.BorderSizePixel = 0
-imageLabel.Position = UDim2.new(-0.08, 0, -0.09, 0)
-imageLabel.Size = UDim2.new(0, 80, 0, 80)
-imageLabel.Image = "http://www.roblox.com/asset/?id=17360859188"
+-- Voeg een UICorner toe aan het hoofdframe
+local mainFrameCorner = Instance.new("UICorner", mainFrame)
 
--- Een extra frame voor andere componenten
-local additionalFrame = Instance.new("Frame")
-additionalFrame.Parent = screenGui
-additionalFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-additionalFrame.BackgroundTransparency = 1
-additionalFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
-additionalFrame.BorderSizePixel = 0
-additionalFrame.Position = UDim2.new(0.436, 0, 0.365, 0)
-additionalFrame.Size = UDim2.new(0, 266, 0, 335)
-    
-    return {
-        screenGui = screenGui,
-        mainFrame = mainFrame,
-        nextButtonY = 0.15  -- To keep track of button placement
-    }
+-- Voeg enkele knoppen toe aan het scrollframe
+for i = 1, 10 do
+    local button = Instance.new("TextButton")
+    button.Parent = scrollFrame
+    button.BackgroundColor3 = Color3.fromRGB(135, 84, 244)
+    button.BackgroundTransparency = 0.6
+    button.Size = UDim2.new(0.8, 0, 0.1, 0)  -- 10% van de hoogte van het scrollframe
+    button.Text = "Button " .. i
+    button.Font = Enum.Font.SourceSans
+    button.TextSize = 18
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+    -- Voeg een UICorner toe voor een afgerond uiterlijk
+    local uiCorner = Instance.new("UICorner", button)
+
+    -- Stel de LayoutOrder in om de volgorde te bepalen
+    button.LayoutOrder = i
 end
+
+-- Pas de CanvasSize aan om aan te geven hoeveel er gescrollt moet worden
+scrollFrame.CanvasSize = UDim2.new(0, 0, listLayout.AbsoluteContentSize.Y, 0)
 
 -- Function to create a button in a given window
 function SimpleUILib.createButton(window, text, onClick)
