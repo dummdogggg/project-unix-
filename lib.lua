@@ -3,25 +3,78 @@ local SimpleUILib = {}
 
 -- Function to create a window with a title
 function SimpleUILib.createWindow(parent, title)
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Parent = parent
-    
-    local mainFrame = Instance.new("Frame", screenGui)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 112)
-    mainFrame.BackgroundTransparency = 0.2
-    mainFrame.Size = UDim2.new(0.25, 0, 0.4, 0)  -- Default size
-    mainFrame.Position = UDim2.new(0.375, 0, 0.3, 0)  -- Centered on screen
-    
-    local uiCorner = Instance.new("UICorner", mainFrame)
-    
-    local titleLabel = Instance.new("TextLabel", mainFrame)
-    titleLabel.BackgroundTransparency = 1
-    titleLabel.Text = title or "Untitled Window"
-    titleLabel.Font = Enum.Font.SourceSansBold
-    titleLabel.TextSize = 24
-    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    titleLabel.Size = UDim2.new(1, 0, 0.15, 0)  -- Top section for title
-    titleLabel.TextYAlignment = Enum.TextYAlignment.Center
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Het hoofdframe
+local mainFrame = Instance.new("Frame")
+mainFrame.Parent = screenGui
+mainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 112)
+mainFrame.BackgroundTransparency = 0.2
+mainFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+mainFrame.BorderSizePixel = 0
+mainFrame.Position = UDim2.new(0.437, 0, 0.342, 0)
+mainFrame.Size = UDim2.new(0, 266, 0, 294)
+
+-- Een binnenframe voor de titel
+local titleFrame = Instance.new("Frame")
+titleFrame.Parent = mainFrame
+titleFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+titleFrame.BackgroundTransparency = 0.6
+titleFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+titleFrame.BorderSizePixel = 0
+titleFrame.Size = UDim2.new(1, 0, 0, 29)
+
+-- Een UICorner om afgeronde hoeken te creëren
+local titleFrameCorner = Instance.new("UICorner")
+titleFrameCorner.Parent = titleFrame
+
+-- Een titel label
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Parent = titleFrame
+titleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.BackgroundTransparency = 1
+titleLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+titleLabel.BorderSizePixel = 0
+titleLabel.Position = UDim2.new(0.09, 0, 0.14, 0)
+titleLabel.Size = UDim2.new(0, 130, 0, 18)
+titleLabel.Font = Enum.Font.SourceSans
+titleLabel.Text = "Project Qnix"
+titleLabel.TextColor3 = Color3.fromRGB(211, 211, 211)
+titleLabel.TextSize = 20
+
+-- Een UICorner voor het hoofdframe
+local mainFrameCorner = Instance.new("UICorner")
+mainFrameCorner.Parent = mainFrame
+
+-- Een gradient voor het hoofdframe
+local gradient = Instance.new("UIGradient")
+gradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 25, 65)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(85, 57, 139))
+})
+gradient.Parent = mainFrame
+
+-- Een afbeeldingslabel
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Parent = mainFrame
+imageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+imageLabel.BackgroundTransparency = 1
+imageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+imageLabel.BorderSizePixel = 0
+imageLabel.Position = UDim2.new(-0.08, 0, -0.09, 0)
+imageLabel.Size = UDim2.new(0, 80, 0, 80)
+imageLabel.Image = "http://www.roblox.com/asset/?id=17360859188"
+
+-- Een extra frame voor andere componenten
+local additionalFrame = Instance.new("Frame")
+additionalFrame.Parent = screenGui
+additionalFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+additionalFrame.BackgroundTransparency = 1
+additionalFrame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+additionalFrame.BorderSizePixel = 0
+additionalFrame.Position = UDim2.new(0.436, 0, 0.365, 0)
+additionalFrame.Size = UDim2.new(0, 266, 0, 335)
     
     return {
         screenGui = screenGui,
