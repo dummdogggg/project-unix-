@@ -3,9 +3,6 @@ local SimpleUILib = {}
 
 -- Function to create a window with a title
 function SimpleUILib.createWindow(parent, title)
--- Roblox Lua Script voor het creëren van een UI-frame
-
--- Maak een ScreenGui om de UI te bevatten
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
@@ -79,8 +76,6 @@ additionalFrame.BorderSizePixel = 0
 additionalFrame.Position = UDim2.new(0.436, 0, 0.365, 0)
 additionalFrame.Size = UDim2.new(0, 266, 0, 335)
 
-
-    
     return {
         screenGui = screenGui,
         mainFrame = mainFrame,
