@@ -2,7 +2,7 @@
 local SimpleUILib = {}
 
 -- Function to create a window with a title
-function SimpleUILib.createWindow(parent, title)
+function SimpleUILib.createWindow(title)
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
